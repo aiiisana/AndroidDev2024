@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">dodo</string>
+
+    <string name="default_name">Баварская</string>
+    <string name="default_description">Острые колбаски чоризо, маринованные огурчики, красный лук, томаты, горчичный соус, моцарелла, фирменный томатный соус.</string>
+    <string name="default_price">от 2700 KZT</string>
+
+
+    <string-array name="pizza_names">
+        <item>Баварская</item>
+        <item>Наруто Пицца</item>
+        <item>Пепперони с грибами</item>
+        <item>Сырная </item>
+        <item>Двойной цыпленок </item>
+        <item>Чоризо фреш ️</item>
+        <item>Ветчина и сыр</item>
+        <item>Пепперони</item>
+        <item>Четыре сыра </item>
+    </string-array>
+
+    <string-array name="pizza_descriptions">
+        <item>Острые колбаски чоризо, маринованные огурчики, красный лук, томаты, горчичный соус, моцарелла, фирменный томатный соус.</item>
+        <item>Куриные кусочки, соус терияки, ананасы, моцарелла, фирменный соус альфредо</item>
+        <item>Пикантная пепперони, моцарелла, шампиньоны, соус альфредо</item>
+        <item>Моцарелла, сыры чеддер и пармезан, соус альфредо</item>
+        <item>Цыпленок, моцарелла, соус альфредо</item>
+        <item>Пикантные колбаски чоризо из цыпленка, зеленый перец, моцарелла, томатный соус</item>
+        <item>Ветчина, моцарелла и соус альфредо — просто и со вкусом</item>
+        <item>Пикантная пепперони, мно-о-ого моцареллы и томатный соус. Самая популярная пицца</item>
+        <item>Увеличенная порция моцареллы, сыры чеддер и пармезан, сыр блю чиз, фирменный соус альфредо</item>
+    </string-array>
+
+    <string-array name="pizza_prices">
+        <item>от 2700 KZT</item>
+        <item>3900 KZT</item>
+        <item>от 2000KZT</item>
+        <item>от 1900 KZT</item>
+        <item>от 2 100KZT</item>
+        <item>от 1 900KZT</item>
+        <item>от 2 000KZT</item>
+        <item>от 2700KZT</item>
+        <item>от 2700KZT</item>
+    </string-array>
+</resources>
