@@ -13,6 +13,18 @@ class PizzaAdapter(private val context: Context, private val pizzas: List<Pizza>
 
     private var filteredPizzas = ArrayList<Pizza>(pizzas)
 
+    private lateinit var mListener : onItemClickListener
+
+    interface onItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener){
+
+        mListener = listener
+
+    }
+
     fun filter(text: String) {
         filteredPizzas.clear()
         if (text.isEmpty()) {
@@ -31,7 +43,7 @@ class PizzaAdapter(private val context: Context, private val pizzas: List<Pizza>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PizzaViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.pizza_row, parent, false)
-        return PizzaViewHolder(view)
+        return PizzaViewHolder(view, mListener)
     }
 
     override fun onBindViewHolder(holder: PizzaViewHolder, position: Int) {
@@ -43,17 +55,27 @@ class PizzaAdapter(private val context: Context, private val pizzas: List<Pizza>
         return pizzas.size
     }
 
-    inner class PizzaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    inner class PizzaViewHolder(itemView: View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView) {
         private val imageView: ImageView = itemView.findViewById(R.id.imageView)
         private val nameTextView: TextView = itemView.findViewById(R.id.pizza_name)
         private val descriptionTextView: TextView = itemView.findViewById(R.id.pizza_description)
         private val priceTextView: TextView = itemView.findViewById(R.id.pizza_price)
+
 
         fun bind(pizza: Pizza) {
             imageView.setImageResource(pizza.imageResource)
             nameTextView.text = pizza.name
             descriptionTextView.text = pizza.description
             priceTextView.text = pizza.price
+        }
+
+        init {
+            itemView.setOnClickListener {
+
+                listener.onItemClick(adapterPosition)
+
+            }
         }
     }
 

@@ -23,4 +23,14 @@
         tools:layout_editor_absoluteY="40dp"
         tools:ignore="MissingConstraints" />
 
+
+    <ImageView
+        android:id="@+id/default_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/no_such_item"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

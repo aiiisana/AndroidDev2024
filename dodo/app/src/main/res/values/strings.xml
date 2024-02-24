@@ -5,6 +5,7 @@
     <string name="default_description">Острые колбаски чоризо, маринованные огурчики, красный лук, томаты, горчичный соус, моцарелла, фирменный томатный соус.</string>
     <string name="default_price">от 2700 KZT</string>
 
+    <string name="default_price_in_details">В КОРЗИНУ ЗА 2700 KZT</string>
 
     <string-array name="pizza_names">
         <item>Баварская</item>
