@@ -1,6 +1,6 @@
 package com.example.dodo
 
-import PizzaAdapter
+import com.example.dodo.PizzaAdapter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,16 +16,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var defaultImage: ImageView
 
     val pizzas = listOf(
-        Pizza("Баварская", "Острые колбаски чоризо, маринованные огурчики, красный лук, томаты, горчичный соус, моцарелла, фирменный томатный соус.", 2700, R.drawable.bavarskaya),
-        Pizza("Наруто Пицца", "Куриные кусочки, соус терияки, ананасы, моцарелла, фирменный соус альфредо", 3900, R.drawable.naruto),
-        Pizza("Пепперони с грибами","Пикантная пепперони, моцарелла, шампиньоны, соус альфредо",2000, R.drawable.peperoni_with_mushrooms),
-        Pizza("Сырная \uD83C\uDF31\uD83D\uDC76", "Моцарелла, сыры чеддер и пармезан, соус альфредо", 1900, R.drawable.cheesee),
-        Pizza("Двойной цыпленок \uD83D\uDC76", "Цыпленок, моцарелла, соус альфредо", 2100, R.drawable.double_chicken),
-        Pizza("Чоризо фреш \uD83C\uDF36\uFE0F", "Пикантные колбаски чоризо из цыпленка, зеленый перец, моцарелла, томатный соус", 1900, R.drawable.chorizo),
-        Pizza("Ветчина и сыр", "Ветчина, моцарелла и соус альфредо — просто и со вкусом", 2000, R.drawable.ham_and_cheese),
-        Pizza("Пепперони", "Пикантная пепперони, мно-о-ого моцареллы и томатный соус. Самая популярная пицца", 2700, R.drawable.peperoni),
-        Pizza("Четыре сыра \uD83C\uDF31", "Увеличенная порция моцареллы, сыры чеддер и пармезан, сыр блю чиз, фирменный соус альфредо", 2700, R.drawable.quatrocheese)
+        Pizza(1, "Баварская", "Острые колбаски чоризо, маринованные огурчики, красный лук, томаты, горчичный соус, моцарелла, фирменный томатный соус.", 2700, R.drawable.bavarskaya),
+        Pizza(2, "Наруто Пицца", "Куриные кусочки, соус терияки, ананасы, моцарелла, фирменный соус альфредо", 3900, R.drawable.naruto),
+        Pizza(3, "Пепперони с грибами","Пикантная пепперони, моцарелла, шампиньоны, соус альфредо",2000, R.drawable.peperoni_with_mushrooms),
+        Pizza(4, "Сырная \uD83C\uDF31\uD83D\uDC76", "Моцарелла, сыры чеддер и пармезан, соус альфредо", 1900, R.drawable.cheesee),
+        Pizza(5, "Двойной цыпленок \uD83D\uDC76", "Цыпленок, моцарелла, соус альфредо", 2100, R.drawable.double_chicken),
+        Pizza(6, "Чоризо фреш \uD83C\uDF36\uFE0F", "Пикантные колбаски чоризо из цыпленка, зеленый перец, моцарелла, томатный соус", 1900, R.drawable.chorizo),
+        Pizza(7, "Ветчина и сыр", "Ветчина, моцарелла и соус альфредо — просто и со вкусом", 2000, R.drawable.ham_and_cheese),
+        Pizza(8, "Пепперони", "Пикантная пепперони, мно-о-ого моцареллы и томатный соус. Самая популярная пицца", 2700, R.drawable.peperoni),
+        Pizza(9, "Четыре сыра \uD83C\uDF31", "Увеличенная порция моцареллы, сыры чеддер и пармезан, сыр блю чиз, фирменный соус альфредо", 2700, R.drawable.quatrocheese)
     )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,11 +51,9 @@ class MainActivity : AppCompatActivity() {
                 val selectedPizza = pizzas[position]
 
                 val intent = Intent(this@MainActivity, DetailsActivity::class.java)
-                intent.putExtra("pizza_image", selectedPizza.imageResource)
-                intent.putExtra("pizza_name", selectedPizza.name)
-                intent.putExtra("pizza_description", selectedPizza.description)
-                intent.putExtra("pizza_price", selectedPizza.price)
+                intent.putExtra("selected_pizza", selectedPizza)
                 startActivity(intent)
+
 
             }
 
