@@ -13,16 +13,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RecyclerView
-        android:id="@+id/myRecycler"
-        android:layout_width="410dp"
-        android:layout_height="618dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="40dp"
-        tools:ignore="MissingConstraints" />
 
+    <RecyclerView
+            android:id="@+id/myRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="826dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="40dp"
+            tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/default_image"

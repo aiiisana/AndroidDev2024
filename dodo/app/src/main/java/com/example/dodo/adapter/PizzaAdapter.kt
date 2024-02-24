@@ -67,7 +67,7 @@ class PizzaAdapter(private val context: Context, private val pizzas: List<Pizza>
             imageView.setImageResource(pizza.imageResource)
             nameTextView.text = pizza.name
             descriptionTextView.text = pizza.description
-            priceTextView.text = pizza.price
+            priceTextView.text = pizza.price.toString()
         }
 
         init {
