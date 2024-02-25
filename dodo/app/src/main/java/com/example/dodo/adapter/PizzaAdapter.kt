@@ -8,38 +8,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dodo.Pizza
 import com.example.dodo.R
 
-class PizzaAdapter(private val context: Context, private val pizzas: List<Pizza>) :
+class PizzaAdapter(private val context: Context, private var pizzas: List<Pizza>) :
     RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder>() {
 
     private var filteredPizzas = ArrayList<Pizza>(pizzas)
+    private lateinit var mListener: OnItemClickListener
 
-    private lateinit var mListener : onItemClickListener
-
-    interface onItemClickListener{
+    interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
 
-    fun setOnItemClickListener(listener: onItemClickListener){
-
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         mListener = listener
-
     }
 
-    fun filter(text: String) {
-        filteredPizzas.clear()
-        if (text.isEmpty()) {
-            filteredPizzas.addAll(pizzas)
-        } else {
-            val searchText = text.toLowerCase()
-            pizzas.forEach { pizza ->
-                if (pizza.name.toLowerCase().contains(searchText)) {
-                    filteredPizzas.add(pizza)
-                }
-            }
-        }
+    fun filterList(filteredList: List<Pizza>) {
+        pizzas = filteredList
         notifyDataSetChanged()
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PizzaViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.pizza_row, parent, false)
@@ -55,13 +41,18 @@ class PizzaAdapter(private val context: Context, private val pizzas: List<Pizza>
         return pizzas.size
     }
 
-
-    inner class PizzaViewHolder(itemView: View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView) {
+    inner class PizzaViewHolder(itemView: View, listener: OnItemClickListener) :
+        RecyclerView.ViewHolder(itemView) {
         private val imageView: ImageView = itemView.findViewById(R.id.imageView)
         private val nameTextView: TextView = itemView.findViewById(R.id.pizza_name)
         private val descriptionTextView: TextView = itemView.findViewById(R.id.pizza_description)
         private val priceTextView: TextView = itemView.findViewById(R.id.pizza_price)
 
+        init {
+            itemView.setOnClickListener {
+                mListener.onItemClick(adapterPosition)
+            }
+        }
 
         fun bind(pizza: Pizza) {
             imageView.setImageResource(pizza.imageResource)
@@ -69,14 +60,5 @@ class PizzaAdapter(private val context: Context, private val pizzas: List<Pizza>
             descriptionTextView.text = pizza.description
             priceTextView.text = pizza.price.toString()
         }
-
-        init {
-            itemView.setOnClickListener {
-
-                listener.onItemClick(adapterPosition)
-
-            }
-        }
     }
-
 }

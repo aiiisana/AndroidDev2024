@@ -1,22 +1,24 @@
-package com.example.dodo
-
-import com.example.dodo.PizzaAdapter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
-import androidx.appcompat.widget.SearchView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dodo.DetailsActivity
+import com.example.dodo.Pizza
+import com.example.dodo.R
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: PizzaAdapter
     private lateinit var defaultImage: ImageView
+    private lateinit var searchEditText: EditText
 
-    val pizzas = listOf(
-        Pizza(1, "Баварская", "Острые колбаски чоризо, маринованные огурчики, красный лук, томаты, горчичный соус, моцарелла, фирменный томатный соус.", 2700, R.drawable.bavarskaya),
+    private val allPizzas = listOf( Pizza(1, "Баварская", "Острые колбаски чоризо, маринованные огурчики, красный лук, томаты, горчичный соус, моцарелла, фирменный томатный соус.", 2700, R.drawable.bavarskaya),
         Pizza(2, "Наруто Пицца", "Куриные кусочки, соус терияки, ананасы, моцарелла, фирменный соус альфредо", 3900, R.drawable.naruto),
         Pizza(3, "Пепперони с грибами","Пикантная пепперони, моцарелла, шампиньоны, соус альфредо",2000, R.drawable.peperoni_with_mushrooms),
         Pizza(4, "Сырная \uD83C\uDF31\uD83D\uDC76", "Моцарелла, сыры чеддер и пармезан, соус альфредо", 1900, R.drawable.cheesee),
@@ -31,52 +33,47 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         val myRecycler: RecyclerView = findViewById(R.id.myRecycler)
-        val search_view: SearchView = findViewById(R.id.search_view)
         defaultImage = findViewById(R.id.default_image)
+        searchEditText = findViewById(R.id.search_edit_text)
 
-
-
-        adapter = PizzaAdapter(this, pizzas)
-
+        adapter = PizzaAdapter(this, allPizzas)
         myRecycler.layoutManager = LinearLayoutManager(this)
         myRecycler.adapter = adapter
 
-
-        adapter.setOnItemClickListener(object : PizzaAdapter.onItemClickListener{
+        adapter.setOnItemClickListener(object : PizzaAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
-
-                val selectedPizza = pizzas[position]
-
+                val selectedPizza = allPizzas[position]
                 val intent = Intent(this@MainActivity, DetailsActivity::class.java)
                 intent.putExtra("selected_pizza", selectedPizza)
                 startActivity(intent)
-
-
-            }
-
-        })
-
-        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let {
-                    adapter.filter(it)
-                    if (it.isEmpty() || adapter.itemCount == 0) {
-                        myRecycler.visibility = View.GONE
-                        defaultImage.visibility = View.VISIBLE
-                    } else {
-                        myRecycler.visibility = View.VISIBLE
-                        defaultImage.visibility = View.GONE
-                    }
-                }
-                return true
             }
         })
+
+
+        // Обработчик нажатия на кнопку поиска
+        val searchButton: Button = findViewById(R.id.search_button)
+        searchButton.setOnClickListener {
+            val query = searchEditText.text.toString()
+            if (query.isNotEmpty()) {
+                performSearch(query)
+            } else {
+                Toast.makeText(this, "Введите запрос для поиска", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun performSearch(query: String) {
+        val filteredList = allPizzas.filter { pizza ->
+            pizza.name.contains(query, ignoreCase = true) ||
+                    pizza.description.contains(query, ignoreCase = true)
+        }
+        if (filteredList.isNotEmpty()) {
+            adapter.filterList(filteredList)
+            defaultImage.visibility = View.GONE
+        } else {
+            adapter.filterList(emptyList())
+            defaultImage.visibility = View.VISIBLE
+        }
     }
 }
